@@ -23,3 +23,8 @@
 .form-name {
     margin: 20px 10px;
 }
+
+.error-form {
+    color: #d95104;
+    margin: 0 0 13px 10px;
+}

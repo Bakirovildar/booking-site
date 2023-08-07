@@ -1,7 +1,7 @@
 import './FormPage.css'
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,10 +13,11 @@ import {asyncChangeData} from "../../store/action";
 
 
 export const FormPage = () => {
-    const [date, setDate] = React.useState('');
-    const [time, setTime] = React.useState('');
-    const [name, setName] = React.useState('');
-    const [number, setNumber] = React.useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
+    const [name, setName] = useState('');
+    const [number, setNumber] = useState('');
+    const [isError, setIsError] = useState(false)
 
     const {title, nameMaster, windows}: any = useSelector<RootState>(state => state.enrollItem)
     const itemsData = useSelector<RootState>(state => state.itemsData)
@@ -32,6 +33,12 @@ export const FormPage = () => {
     };
 
     const sendFormHandler = () => {
+        if (!date || !time || !name || !number ) {
+            setIsError(true)
+            return
+        }
+
+        setIsError(false)
         dispatch<any>(asyncChangeData(itemsData, {date: date, nameMaster, time: time}))
         setDate('')
         setTime('')
@@ -48,10 +55,11 @@ export const FormPage = () => {
                     <div className='form-date-time'>
                         <Box sx={{minWidth: 240}} style={{background: 'white', margin: '10px 10px 0 0'}}>
                             <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Дата</InputLabel>
+                                <InputLabel id="demo-simple-select-label">Дата *</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
+                                    error={isError && !date}
                                     value={date}
                                     label="ДАта"
                                     onChange={handleChange}
@@ -65,10 +73,11 @@ export const FormPage = () => {
                         </Box>
                         <Box sx={{minWidth: 120}} style={{background: 'white', margin: '10px 0 0 0'}}>
                             <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Время</InputLabel>
+                                <InputLabel id="demo-simple-select-label">Время *</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
+                                    error={isError && !time}
                                     value={time}
                                     label="Время"
                                     onChange={handleChangeTime}
@@ -85,7 +94,8 @@ export const FormPage = () => {
                         <TextField
                             style={{background: 'white'}}
                             id="outlined-required"
-                            label="Ваше имя"
+                            error={isError && !name}
+                            label="Ваше имя *"
                             value={name}
                             onChange={e => setName(e.target.value)}
                         />
@@ -94,12 +104,18 @@ export const FormPage = () => {
                         <TextField
                             style={{background: 'white'}}
                             id="outlined-required"
-                            label="Номер телефона"
+                            error={isError && !number}
+                            label="Номер телефона *"
                             type="number"
                             value={number}
                             onChange={e => setNumber(e.target.value)}
                         />
                     </div>
+                    { isError &&
+                        <div className='error-form'>
+                            Заполните обязательные поля *
+                        </div>
+                    }
                     <div style={{width: '100%', boxSizing: 'border-box'}}>
                         <ButtonStandard clickButtonStandard={() => sendFormHandler()} title={'Записаться'}/>
                     </div>
