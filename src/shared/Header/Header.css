@@ -1,0 +1,39 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    padding: 0 40px;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgb(193, 190, 190);
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.header-logo img{
+    width: 40px;
+    height: 40px;
+}
+
+.header-logo span{
+    margin-left: 14px;
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.header-item {
+
+}
+
+.item {
+    margin-right: 20px;
+    color: #115E67;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+}

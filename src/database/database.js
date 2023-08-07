@@ -1,20 +1,19 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push, off, query, limitToLast, get } from "firebase/database";
+import {initializeApp} from "firebase/app";
+import {getDatabase, ref, push, off, query, limitToLast, get} from "firebase/database";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyC7IjGNObI6MwdqfvbBQEQnWLIBPK0sOeY",
-    authDomain: "ildar-aliya.firebaseapp.com",
-    projectId: "ildar-aliya",
-    storageBucket: "ildar-aliya.appspot.com",
-    messagingSenderId: "381148474151",
-    appId: "1:381148474151:web:ab7e388d60b8276cba5702",
-    measurementId: "G-1V2HEJLRXJ"
+    apiKey: "AIzaSyDgSXf5KN3Pzw7SRmjat-W6KjYM1uWpp_g",
+    authDomain: "booking-my.firebaseapp.com",
+    projectId: "booking-my",
+    storageBucket: "booking-my.appspot.com",
+    messagingSenderId: "325277539536",
+    appId: "1:325277539536:web:4fb224a69f9b240857d2d5",
+    measurementId: "G-NM7CLM31NH",
+    databaseURL: 'https://booking-my-default-rtdb.asia-southeast1.firebasedatabase.app/'
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app)
-
-export const createForm = (pathData, body) => push(ref(db, pathData), body)
 
 export {db}

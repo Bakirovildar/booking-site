@@ -1,121 +1,101 @@
-import {ActionCreator} from "redux";
+import {Action, ActionCreator} from "redux";
+import {ThunkAction} from "redux-thunk";
+import {RootState} from "./store";
+import {child, get, getDatabase, ref, set} from "firebase/database";
+import {useSelector} from "react-redux";
+import {db} from "../database/database";
 
-export const TASKS = 'TASKS'
+export const ENROLLITEM = 'ENROLLITEM'
 
-export type Tasks = {
-    type: typeof TASKS,
-    tasks: any
+export type EnrollItem = {
+    type: typeof ENROLLITEM,
+    enrollItem: any
 }
 
-export const addTask: ActionCreator<Tasks> = (task) => ({
-    type: TASKS,
-    tasks: task
+export const addEnrollItem: ActionCreator<EnrollItem> = (enroll) => ({
+    type: ENROLLITEM,
+    enrollItem: enroll
 })
 
-export const DELETETASK = 'DELETETASK'
+export const SAVEITEMSDATA = 'SAVEITEMSDATA'
 
-export type DeleteTask = {
-    type: typeof DELETETASK,
-    id: any
+export type SaveItemsData = {
+    type: typeof SAVEITEMSDATA,
+    itemsData: any
 }
 
-export const deleteTaskAction: ActionCreator<DeleteTask> = (id) => ({
-    type: DELETETASK,
-    id
+export const saveItemsData: ActionCreator<SaveItemsData> = (data) => ({
+    type: SAVEITEMSDATA,
+    itemsData: data
 })
 
-export const ADDPLUSCOUNTTIME = 'ADDPLUSCOUNTTIME'
+export const asyncItemsData = (): ThunkAction<void, RootState, unknown, Action> => (dispatch) => {
+    async function getItems() {
+        const dbRef = ref(getDatabase());
+        get(child(dbRef, `services/`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                dispatch(saveItemsData(snapshot.val()))
+            } else {
+                console.log("No data available");
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }
 
-export type AddCountTime = {
-    type: typeof ADDPLUSCOUNTTIME
-    id: any
+    getItems()
 }
 
-export const addPlusCountTime: ActionCreator<AddCountTime> = (id) => ({
-    type: ADDPLUSCOUNTTIME,
-    id
-})
+export const CHANGEDATA = 'CHANGEDATA'
 
-export const ADDMINUSCOUNTTIME = 'ADDMINUSCOUNTTIME'
-
-export type AddMinusCountTime = {
-    type: typeof ADDMINUSCOUNTTIME
-    id: any
+export type ChangeData = {
+    type: typeof CHANGEDATA,
+    data: any
 }
 
-export const addMinusCountTime: ActionCreator<AddMinusCountTime> = (id) => ({
-    type: ADDMINUSCOUNTTIME,
-    id
-})
-
-export const EDITVALUETASK = 'EDITVALUETASK'
-
-export type EditValueAction = {
-    type: typeof EDITVALUETASK
-    value: string
-    id: any
+export const changeData: ActionCreator<ChangeData> = (itemsData) => {
+    return {
+        type: CHANGEDATA,
+        data: itemsData
+    }
 }
 
-export const editValueTask: ActionCreator<EditValueAction> = (value, id) => ({
-    type: EDITVALUETASK,
-    value,
-    id
-})
+export const asyncChangeData = (itemsData: any, entryData: any): ThunkAction<void, RootState, unknown, Action> => (dispatch) => {
+    const data = itemsData
 
-export const COUNTWORK = 'COUNTWORK'
+    const updateBookingStatus = (data: any, masterName: string, day: string, time: string, isBooking: boolean) => {
+        data.forEach((obj: any) => {
+            if (obj.master === masterName) {
+                obj.windows.forEach((window: any) => {
+                    window.date.forEach((date: any) => {
+                        if (date.day === day) {
+                            date.times.forEach((t: any) => {
+                                if (t.time === time) {
+                                    t.isBooking = isBooking;
+                                }
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    };
 
-export type CountWorkAction = {
-    type: typeof COUNTWORK
-    time: any
-    date: any
+    updateBookingStatus(data, entryData.nameMaster, entryData.date, entryData.time, true)
+
+
+    dispatch(changeData(itemsData, entryData))
+
+
+    async function editData() {
+        try {
+            await set(ref(db, `services`), data
+            ).then(() => {
+            })
+        }catch (err) {
+            console.log('error changeData', err)
+        }
+    }
+
+    editData()
 }
-
-export const countWork: ActionCreator<CountWorkAction> = (time, date) => ({
-    type: COUNTWORK,
-    time,
-    date
-})
-
-export const DROPDOWNNUMBER = 'DROPDOWNNUMBER'
-
-export type DropdownNumberAction = {
-    type: typeof DROPDOWNNUMBER
-    number: number
-}
-
-export const dropdownNumber: ActionCreator<DropdownNumberAction> = (number) => ({
-    type: DROPDOWNNUMBER,
-    number
-})
-
-export const COUNTPOMODORO = 'COUNTPOMODORO'
-
-export type CountPomodoroAction = {
-    type: typeof COUNTPOMODORO
-}
-
-export const countPomodoro: ActionCreator<CountPomodoroAction> = () => ({
-    type: COUNTPOMODORO
-})
-
-export const COUNTSTOP = 'COUNTSTOP'
-
-export type CountStopAction = {
-    type: typeof COUNTSTOP
-}
-
-export const countStop: ActionCreator<CountStopAction> = () => ({
-    type: COUNTSTOP
-})
-
-export const COUNTPAUSE = 'COUNTPAUSE'
-
-export type CountPauseAction = {
-    type: typeof COUNTPAUSE
-    countPause: number
-}
-
-export const countPause: ActionCreator<CountPauseAction> = (countPause) => ({
-    type: COUNTPAUSE,
-    countPause
-})

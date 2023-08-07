@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import {composeWithDevTools} from "redux-devtools-extension";
+import thunk from "redux-thunk";
+import {Provider} from "react-redux";
+import {applyMiddleware, createStore} from "redux";
+import {rootReducer} from "./store/store";
+import {Main} from "./shared/Main/Main";
+import {Header} from "./shared/Header/Header";
+import {Route, Routes} from 'react-router-dom'
+import {useNavigate} from "react-router";
+import {EnrollPage} from "./shared/EnrollPage/EnrollPage";
+import {FormPage} from "./shared/FormPage/FormPage";
+
+export const store = createStore(rootReducer, composeWithDevTools(
+    applyMiddleware(thunk)
+))
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        navigate('/home')
+    }, [])
+
+    return (
+        <Provider store={store}>
+            <div className="App">
+                <div className='app-bg'/>
+            </div>
+            <div className='content-container'>
+                <Header/>
+                <Routes>
+                    <Route path='/home' element={<Main/>}/>
+                    <Route path='/enroll' element={<EnrollPage/>}/>
+                    <Route path='/form' element={<FormPage/>}/>
+                </Routes>
+            </div>
+        </Provider>
+    );
 }
 
 export default App;

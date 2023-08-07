@@ -1,0 +1,17 @@
+.main-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-image {
+    width: 700px;
+    height: 585px;
+}
+
+.main-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+
+}

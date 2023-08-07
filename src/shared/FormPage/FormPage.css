@@ -1,0 +1,25 @@
+.form-page-container {
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    margin: 0 auto;
+    background: #FAFAFA;
+    border-radius: 5px;
+}
+
+.form-page-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-date-time {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px;
+}
+
+.form-name {
+    margin: 20px 10px;
+}
