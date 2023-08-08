@@ -6,3 +6,16 @@
     justify-content: space-around;
     align-items: center;
 }
+
+@media (max-width: 1150px) {
+    .main-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 560px) {
+    .main-container {
+        justify-content: center;
+        align-items: center;
+    }
+}
