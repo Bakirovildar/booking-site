@@ -1,6 +1,7 @@
 import './Header.css'
 import logo from '../../assests/svg/logo.svg'
 import {useNavigate} from "react-router";
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 
 export const Header = () => {
     const navigate = useNavigate()
@@ -18,6 +19,9 @@ export const Header = () => {
                 <span
                     onClick={() => clickNavigate('/enroll')}
                     className='item'>Запись</span>
+                <div
+                    onClick={() => clickNavigate('/admin')}
+                    className='item'><AdminPanelSettingsIcon/></div>
             </div>
         </div>
     )

@@ -11,6 +11,7 @@ import {Route, Routes} from 'react-router-dom'
 import {useNavigate} from "react-router";
 import {EnrollPage} from "./shared/EnrollPage/EnrollPage";
 import {FormPage} from "./shared/FormPage/FormPage";
+import {AdminInput} from "./shared/AdminInput/AdminInput";
 
 export const store = createStore(rootReducer, composeWithDevTools(
     applyMiddleware(thunk)
@@ -34,6 +35,7 @@ function App() {
                     <Route path='/home' element={<Main/>}/>
                     <Route path='/enroll' element={<EnrollPage/>}/>
                     <Route path='/form' element={<FormPage/>}/>
+                    <Route path='/admin' element={<AdminInput/>}/>
                 </Routes>
             </div>
         </Provider>

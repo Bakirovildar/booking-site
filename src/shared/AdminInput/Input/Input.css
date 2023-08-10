@@ -1,0 +1,12 @@
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+    background: #e3e3f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.error-span {
+    color: #d95104;
+}
