@@ -1,9 +1,10 @@
 import './AdminPage.css'
+import {ListCard} from "./ListCard/ListCard";
 
 export const AdminPage = () => {
     return (
-        <div>
-            admin
+        <div className='admin-container'>
+            <ListCard masterDates={[]}/>
         </div>
     )
 }
