@@ -1,6 +1,6 @@
 import './ListTime.css'
 import {Theme, useTheme} from "@mui/material/styles";
-import React from "react";
+import React, {useEffect} from "react";
 import Select, {SelectChangeEvent} from "@mui/material/Select";
 import {OutlinedInput} from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
@@ -27,11 +27,19 @@ function getStyles(name: string, personName: string[], theme: Theme) {
 }
 
 
-export const ListTime = () => {
+export interface IListTime {
+    timesSave: (times: Array<string>) => void
+}
+
+export const ListTime = ({timesSave}: IListTime) => {
     const theme = useTheme();
     const [personName, setPersonName] = React.useState<string[]>([]);
 
     const allTime = ['9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00',]
+
+    useEffect(() => {
+        timesSave(personName)
+    }, [personName])
 
     const handleChange = (event: SelectChangeEvent<typeof personName>) => {
         const {

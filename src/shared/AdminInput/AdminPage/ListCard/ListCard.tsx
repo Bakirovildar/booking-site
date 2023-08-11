@@ -1,20 +1,32 @@
 import './ListCard.css'
 import TextField from "@mui/material/TextField";
-import React from "react";
+import React, {useState} from "react";
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
 import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import {Dayjs} from "dayjs";
-import {ListTime} from "./ListTime/ListTime";
+import {IListTime, ListTime} from "./ListTime/ListTime";
+const { DateTime } = require('luxon');
 
 interface IListCard {
     masterDates: any
 }
 
 export const ListCard = ({masterDates}: IListCard) => {
-    const [value, setValue] = React.useState<Dayjs | null>(null);
+    const [date, setDate]: any = React.useState<Dayjs | null>(null);
+    const [times, setTimes] = useState([])
+
+    const timesSave = (times: any) => {
+        const dateString = date?.format('dd LLLL');
+        let newDdate = new Date(dateString);
+        let options: object = { day: 'numeric', month: 'long' };
+        let formattedDate = newDdate.toLocaleDateString('ru-RU', options);
+
+
+        setTimes(times)
+    }
 
     return (
         <div className='list-card-container'>
@@ -46,10 +58,13 @@ export const ListCard = ({masterDates}: IListCard) => {
                 <div className='list-card-flex'>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DemoContainer components={['DatePicker']}>
-                            <DatePicker value={value} onChange={(newValue) => setValue(newValue)} />
+                            <DatePicker value={date} onChange={(newValue) => setDate(newValue)} />
                         </DemoContainer>
                     </LocalizationProvider>
-                    <ListTime/>
+                    <ListTime timesSave={(t) => timesSave(t)}/>
+                </div>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <ControlPointIcon className='services-add'/>
                 </div>
             </div>
         </div>
