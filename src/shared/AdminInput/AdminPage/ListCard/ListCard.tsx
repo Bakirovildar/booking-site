@@ -19,6 +19,8 @@ interface IListCard {
 }
 
 export const ListCard = ({masterDates}: IListCard) => {
+    const [master, setMaster]: any = useState('')
+    const [services, setServices]: any = useState([])
     const [date, setDate]: any = React.useState<Dayjs | null>(null)
     const [times, setTimes]: any = useState([])
     const [windows, setWindows]: any = useState([])
@@ -45,6 +47,31 @@ export const ListCard = ({masterDates}: IListCard) => {
         }
     }
 
+    const addServices = (e: React.ChangeEvent<HTMLInputElement>, idx: number) => {
+        const ser = [...services]
+        const isService = ser.findIndex(s => s.id === idx)
+
+        if (!ser.length || isService === -1) {
+            ser.push({id: idx, name: master, title: e.target.value})
+        } else {
+            ser[isService].title = e.target.value
+        }
+
+        setServices(ser)
+    }
+
+    useEffect(() => {
+        console.log(services)
+    }, [services])
+
+    const clickButtonStandard = () => {
+        const data = {
+            master: ''
+        }
+
+        // setFormData()
+    }
+
     return (
         <div className='list-card-container'>
             <div className='list-card-master'>
@@ -53,6 +80,8 @@ export const ListCard = ({masterDates}: IListCard) => {
                     id="outlined-required"
                     label="Имя мастера"
                     type="text"
+                    value={master}
+                    onChange={e => setMaster(e.target.value)}
                 />
             </div>
 
@@ -67,8 +96,9 @@ export const ListCard = ({masterDates}: IListCard) => {
                                 <TextField
                                     key={index}
                                     style={{marginBottom: '6px'}}
-                                    id="outlined-required"
                                     label="Услуги"
+                                    value={services.find((s:any) => s.id === index)?.title || ''}
+                                    onChange={(e: any) => addServices(e, index)}
                                     type="text"/>)
                         }
                     </div>
@@ -107,9 +137,9 @@ export const ListCard = ({masterDates}: IListCard) => {
                     />
                 </div>
             </div>
-            <ButtonStandard clickButtonStandard={() => {
-                console.log(storeDate)
-            }} title='Отправить'/>
+            <ButtonStandard
+                clickButtonStandard={() => clickButtonStandard}
+                title='Отправить'/>
         </div>
     )
 }

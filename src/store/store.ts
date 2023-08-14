@@ -79,7 +79,6 @@ export const rootReducer: Reducer<RootState, MyAction> = (state = initialState, 
                     windowsDate: updatedWindowsDate
                 };
             } else {
-                // If the day doesn't exist, add it to the array
                 return {
                     ...state,
                     windowsDate: [...state.windowsDate, action.date]
