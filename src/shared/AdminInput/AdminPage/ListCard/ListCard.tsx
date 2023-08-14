@@ -10,9 +10,10 @@ import {Dayjs} from "dayjs";
 import {ListTime} from "./ListTime/ListTime";
 import {ButtonStandard} from "../../../../components/buttons/ButtonStandard/ButtonStandard";
 import {formateDate} from "../../../../helpers/formattedDate";
-import {saveDate} from "../../../../store/action";
+import {saveDate, saveItemsData} from "../../../../store/action";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
+import {child, get, getDatabase, ref, set} from "firebase/database";
 
 interface IListCard {
     masterDates: any
@@ -42,19 +43,19 @@ export const ListCard = ({masterDates}: IListCard) => {
     useEffect(() => {
         if (!master) {
             setIsError(true)
-        }else  {
+        } else {
             setIsError(false)
         }
 
         if (!services.length) {
             setIsError(true)
-        }else  {
+        } else {
             setIsError(false)
         }
 
         if (!storeDate.length) {
             setIsError(true)
-        }else  {
+        } else {
             setIsError(false)
         }
 
@@ -81,13 +82,13 @@ export const ListCard = ({masterDates}: IListCard) => {
         setServices(ser)
     }
 
-    const clickButtonStandard = () => {
+    const clickButtonStandard = async () => {
         if (!master || !services[0].title || !storeDate.length) {
             setIsError(true)
             return
         }
 
-        const data = {
+        const data: any = {
             master: master,
             services: services,
             windows: [
@@ -97,7 +98,15 @@ export const ListCard = ({masterDates}: IListCard) => {
             ]
         }
 
-        console.log(data)
+        const db = getDatabase();
+        set(ref(db, 'services/'), [{
+            master: master,
+            services: services,
+            windows: [{
+                date: storeDate
+            }]
+        }]);
+
         // setFormData()
     }
 

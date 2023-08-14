@@ -108,7 +108,6 @@ export type SaveDate = {
 }
 
 export const saveDate: ActionCreator<SaveDate> = (date) => {
-
     return {
         type: SAVEDATE,
         date: date
