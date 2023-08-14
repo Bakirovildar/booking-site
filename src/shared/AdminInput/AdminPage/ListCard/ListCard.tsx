@@ -28,16 +28,37 @@ export const ListCard = ({masterDates}: IListCard) => {
     const [countDate, setCountDate] = useState([1])
     const [formData, setFormData] = useState([])
 
+    const [isError, setIsError] = useState(false)
+
     const dispatch = useDispatch()
-    const storeDate = useSelector<RootState>(state => state.windowsDate)
+    const storeDate: any = useSelector<RootState>(state => state.windowsDate)
 
     useEffect(() => {
         const newDate = formateDate(date)
-
         if (newDate === 'Invalid Date') return
-
         dispatch(saveDate({day: newDate, times: times}))
     }, [times])
+
+    useEffect(() => {
+        if (!master) {
+            setIsError(true)
+        }else  {
+            setIsError(false)
+        }
+
+        if (!services.length) {
+            setIsError(true)
+        }else  {
+            setIsError(false)
+        }
+
+        if (!storeDate.length) {
+            setIsError(true)
+        }else  {
+            setIsError(false)
+        }
+
+    }, [master, services, storeDate])
 
     const addInput = (name: string) => {
         if (name === 'service') {
@@ -60,15 +81,23 @@ export const ListCard = ({masterDates}: IListCard) => {
         setServices(ser)
     }
 
-    useEffect(() => {
-        console.log(services)
-    }, [services])
-
     const clickButtonStandard = () => {
-        const data = {
-            master: ''
+        if (!master || !services[0].title || !storeDate.length) {
+            setIsError(true)
+            return
         }
 
+        const data = {
+            master: master,
+            services: services,
+            windows: [
+                {
+                    date: storeDate
+                }
+            ]
+        }
+
+        console.log(data)
         // setFormData()
     }
 
@@ -97,7 +126,7 @@ export const ListCard = ({masterDates}: IListCard) => {
                                     key={index}
                                     style={{marginBottom: '6px'}}
                                     label="Услуги"
-                                    value={services.find((s:any) => s.id === index)?.title || ''}
+                                    value={services.find((s: any) => s.id === index)?.title || ''}
                                     onChange={(e: any) => addServices(e, index)}
                                     type="text"/>)
                         }
@@ -137,8 +166,13 @@ export const ListCard = ({masterDates}: IListCard) => {
                     />
                 </div>
             </div>
+
+            {
+                isError && <span className='error-form'>Заполните все нужные поля</span>
+            }
+
             <ButtonStandard
-                clickButtonStandard={() => clickButtonStandard}
+                clickButtonStandard={() => clickButtonStandard()}
                 title='Отправить'/>
         </div>
     )
