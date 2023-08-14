@@ -99,3 +99,18 @@ export const asyncChangeData = (itemsData: any, entryData: any): ThunkAction<voi
 
     editData()
 }
+
+export const SAVEDATE = 'SAVEDATE'
+
+export type SaveDate = {
+    type: typeof SAVEDATE,
+    date: any
+}
+
+export const saveDate: ActionCreator<SaveDate> = (date) => {
+
+    return {
+        type: SAVEDATE,
+        date: date
+    }
+}

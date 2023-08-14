@@ -28,7 +28,7 @@ function getStyles(name: string, personName: string[], theme: Theme) {
 
 
 export interface IListTime {
-    timesSave: (times: Array<string>) => void
+    timesSave: (times: Array<any>) => void
 }
 
 export const ListTime = ({timesSave}: IListTime) => {
@@ -38,7 +38,12 @@ export const ListTime = ({timesSave}: IListTime) => {
     const allTime = ['9:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00',]
 
     useEffect(() => {
-        timesSave(personName)
+        const newArray = personName.map((t) => ({
+            isBooking: false,
+            time: t
+        }))
+
+        timesSave(newArray)
     }, [personName])
 
     const handleChange = (event: SelectChangeEvent<typeof personName>) => {

@@ -7,45 +7,35 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import {Dayjs} from "dayjs";
-import {IListTime, ListTime} from "./ListTime/ListTime";
+import {ListTime} from "./ListTime/ListTime";
 import {ButtonStandard} from "../../../../components/buttons/ButtonStandard/ButtonStandard";
-
-const {DateTime} = require('luxon');
+import {formateDate} from "../../../../helpers/formattedDate";
+import {saveDate} from "../../../../store/action";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../../store/store";
 
 interface IListCard {
     masterDates: any
 }
 
 export const ListCard = ({masterDates}: IListCard) => {
-    const [date, setDate]: any = React.useState<Dayjs | null>(null);
+    const [date, setDate]: any = React.useState<Dayjs | null>(null)
+    const [times, setTimes]: any = useState([])
     const [windows, setWindows]: any = useState([])
     const [countServices, setCountServices] = useState([1])
     const [countDate, setCountDate] = useState([1])
-    const [formData, setFormData] = useState([{
-            master: "Zarina",
-            services: [
-                {
-                    name: "Zarina", title: "Локоны прикольные, я не знаю короче"
-                },
-                {
-                    name: "Zarina",
-                    title: "Локоны прикольные, я не знаю короче"
-                }],
-            windows: [
-                {
-                    date: [
-                        {
-                            day: "18 августа",
-                            times: [
-                                {
-                                    isBooking: true, "time": "13:00"
-                                }
-                            ]
-                        }
-                    ]
-                }]
-        }]
-    )
+    const [formData, setFormData] = useState([])
+
+    const dispatch = useDispatch()
+    const storeDate = useSelector<RootState>(state => state.windowsDate)
+
+    useEffect(() => {
+        const newDate = formateDate(date)
+
+        if (newDate === 'Invalid Date') return
+
+        dispatch(saveDate({day: newDate, times: times}))
+    }, [times])
 
     const addInput = (name: string) => {
         if (name === 'service') {
@@ -96,24 +86,6 @@ export const ListCard = ({masterDates}: IListCard) => {
 
                 {
                     countDate.map((i: number, idx: number) => {
-                            const timesSave = (times: any) => {
-                                const dateString = date?.format('dd LLLL');
-                                let newDate = new Date(dateString);
-                                let options: object = {day: 'numeric', month: 'long'};
-                                let formattedDate = newDate.toLocaleDateString('ru-RU', options);
-
-                                const timesData = times.map((i: string) => ({isBooking: false, time: i}))
-
-                                const data: any = [
-                                    {
-                                        day: formattedDate,
-                                        times: timesData
-                                    }
-                                ]
-
-                                setWindows(data)
-                            }
-
                             return (
                                 <div className='list-card-flex' key={idx}>
                                     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -121,23 +93,23 @@ export const ListCard = ({masterDates}: IListCard) => {
                                             <DatePicker value={date} onChange={(newValue) => setDate(newValue)}/>
                                         </DemoContainer>
                                     </LocalizationProvider>
-                                    <ListTime timesSave={(t) => timesSave(t)}/>
+                                    <ListTime timesSave={time => setTimes(time)}/>
                                 </div>
                             )
                         }
                     )
                 }
 
-                    <div style={{display: 'flex', justifyContent: 'center'}}>
+                <div style={{display: 'flex', justifyContent: 'center'}}>
                     <ControlPointIcon
-                    onClick={() => addInput('date')}
-                    className='services-add'
+                        onClick={() => addInput('date')}
+                        className='services-add'
                     />
-                    </div>
-                    </div>
-                    <ButtonStandard clickButtonStandard={() => {
-                    console.log(windows)
-                }} title='Отправить'/>
-                    </div>
-                    )
-                    }
+                </div>
+            </div>
+            <ButtonStandard clickButtonStandard={() => {
+                console.log(storeDate)
+            }} title='Отправить'/>
+        </div>
+    )
+}
