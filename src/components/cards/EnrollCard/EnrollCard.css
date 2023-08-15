@@ -37,10 +37,8 @@
 }
 
 .enroll-card-right {
-    min-width: 40px;
-    max-width: 40px;
+    width: 40px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    border-left: 1px solid #c0cfd0;
+    justify-content: end;
 }
