@@ -73,7 +73,7 @@ export const FormPage = () => {
 
             }
             { isSuccessfully
-                    ? <div className='form-page-center'><div>Вы записались на <b>{date} в {time}</b></div></div>
+                    ? <div className='form-page-center'><div style={{margin: '0 5px'}}>Вы записались на <b>{date} в {time} к мастеру {nameMaster}</b></div></div>
                     : <div className='form-page-wrapper'>
                         <h3>Запись на услугу: {title ? title : ''}</h3>
                         <h4>Мастер: {nameMaster ? nameMaster : ''}</h4>
