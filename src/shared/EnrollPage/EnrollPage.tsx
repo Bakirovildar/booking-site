@@ -11,7 +11,6 @@ export const EnrollPage = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log(items)
         dispatch<any>(asyncItemsData())
     }, [])
 

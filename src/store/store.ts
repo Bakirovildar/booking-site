@@ -1,7 +1,7 @@
 import {Reducer} from "redux";
 import {
     ChangeData,
-    CHANGEDATA,
+    CHANGEDATA, ClearDate, CLEARDATE,
     ENROLLITEM,
     EnrollItem,
     SaveDate,
@@ -32,7 +32,7 @@ const initialState: RootState = {
     windowsDate: []
 }
 
-type MyAction = EnrollItem | SaveItemsData | ChangeData | SaveDate
+type MyAction = EnrollItem | SaveItemsData | ChangeData | SaveDate | ClearDate
 
 export const rootReducer: Reducer<RootState, MyAction> = (state = initialState, action) => {
     switch (action.type) {
@@ -83,6 +83,12 @@ export const rootReducer: Reducer<RootState, MyAction> = (state = initialState, 
                     ...state,
                     windowsDate: [...state.windowsDate, action.date]
                 };
+            }
+
+        case CLEARDATE:
+            return {
+                ...state,
+                windowsDate: []
             }
         default:
             return state

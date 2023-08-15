@@ -10,7 +10,7 @@ import {Dayjs} from "dayjs";
 import {ListTime} from "./ListTime/ListTime";
 import {ButtonStandard} from "../../../../components/buttons/ButtonStandard/ButtonStandard";
 import {formateDate} from "../../../../helpers/formattedDate";
-import {saveDate, saveItemsData} from "../../../../store/action";
+import {clearDate, saveDate, saveItemsData} from "../../../../store/action";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
 import {child, get, getDatabase, ref, set} from "firebase/database";
@@ -29,7 +29,6 @@ export const ListCard = ({masterDates}: IListCard) => {
     const [countServices, setCountServices] = useState([1])
     const [countDate, setCountDate] = useState([1])
     const [formData, setFormData] = useState([])
-
     const [isError, setIsError] = useState(false)
 
     const dispatch = useDispatch()
@@ -90,17 +89,6 @@ export const ListCard = ({masterDates}: IListCard) => {
             return
         }
 
-        const data: any = {
-            master: master,
-            services: services,
-            windows: [
-                {
-                    date: storeDate
-                }
-            ]
-        }
-
-
         const db = getDatabase();
         set(ref(db, 'services/'), [
             ...oldData,
@@ -112,7 +100,16 @@ export const ListCard = ({masterDates}: IListCard) => {
             }]
         }]);
 
-        // setFormData()
+        dispatch(clearDate())
+        setMaster('')
+        setServices([])
+        setDate(null)
+        setTimes([])
+        setWindows([])
+        setCountServices([1])
+        setCountDate([1])
+        setFormData([])
+        setIsError(false)
     }
 
     return (

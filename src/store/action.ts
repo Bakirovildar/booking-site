@@ -113,3 +113,14 @@ export const saveDate: ActionCreator<SaveDate> = (date) => {
         date: date
     }
 }
+export const CLEARDATE = 'CLEARDATE'
+
+export type ClearDate = {
+    type: typeof CLEARDATE,
+}
+
+export const clearDate: ActionCreator<ClearDate> = () => {
+    return {
+        type: CLEARDATE,
+    }
+}
