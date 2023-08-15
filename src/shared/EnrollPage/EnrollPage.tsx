@@ -11,7 +11,7 @@ export const EnrollPage = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        console.log(JSON.stringify(items))
+        console.log(items)
         dispatch<any>(asyncItemsData())
     }, [])
 
@@ -21,9 +21,12 @@ export const EnrollPage = () => {
                 items.map((item: any, index: number) =>
                     <div key={index}>
                         {
-                            item.services.map((i: any, idx: number) => <EnrollCard key={idx} title={i.title} id={i.id} name={i.name} windows={item.windows}/>)
+                            item.services.map((i: any, idx: number) => <EnrollCard key={idx} title={i.title} id={i.id}
+                                                                                   name={i.name}
+                                                                                   windows={item.windows}/>)
                         }
                     </div>)
+
             }
         </div>
     )

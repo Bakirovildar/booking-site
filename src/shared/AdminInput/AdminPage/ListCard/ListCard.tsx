@@ -14,6 +14,7 @@ import {saveDate, saveItemsData} from "../../../../store/action";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../../store/store";
 import {child, get, getDatabase, ref, set} from "firebase/database";
+const { v4 } = require("uuid");
 
 interface IListCard {
     masterDates: any
@@ -33,6 +34,7 @@ export const ListCard = ({masterDates}: IListCard) => {
 
     const dispatch = useDispatch()
     const storeDate: any = useSelector<RootState>(state => state.windowsDate)
+    const oldData: any = useSelector<RootState>(state => state.itemsData)
 
     useEffect(() => {
         const newDate = formateDate(date)
@@ -98,8 +100,11 @@ export const ListCard = ({masterDates}: IListCard) => {
             ]
         }
 
+
         const db = getDatabase();
-        set(ref(db, 'services/'), [{
+        set(ref(db, 'services/'), [
+            ...oldData,
+            {
             master: master,
             services: services,
             windows: [{
