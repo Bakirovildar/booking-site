@@ -13,7 +13,7 @@ export const Header = () => {
     return (
         <div className='header-container'>
             <div
-                onClick={() => clickNavigate('/home')}
+                onClick={() => clickNavigate('/')}
                 className='header-logo'><img src={logo} alt=""/> <span>Baki</span></div>
             <div className='header-item'>
                 <span
