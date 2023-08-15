@@ -1,3 +1,9 @@
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #fcfcfc;
+    color: #2222;
+  }
+}
 .App {
   text-align: center;
   z-index: 1;
