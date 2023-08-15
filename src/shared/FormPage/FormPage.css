@@ -9,7 +9,14 @@
 
 .form-page-center {
     width: 100%;
-    height: 100%;
+    height: 89vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-page-load {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,4 +42,11 @@
 .error-form {
     color: #d95104;
     margin: 0 0 13px 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .form-page-container {
+        background-color: #fcfcfc;
+        color: #2222;
+    }
 }

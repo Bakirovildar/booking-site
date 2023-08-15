@@ -18,3 +18,10 @@
     border-radius: 2px;
 }
 
+
+@media (prefers-color-scheme: dark) {
+    .enroll-container {
+        background-color: #fcfcfc;
+        color: #2222;
+    }
+}

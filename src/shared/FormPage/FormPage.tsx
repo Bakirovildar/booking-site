@@ -65,7 +65,7 @@ export const FormPage = () => {
         <div className='form-page-container'>
             {
                 isLoading &&
-                <div className='form-page-center'>
+                <div className='form-page-load'>
                     <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
                         <CircularProgress color="secondary" />
                     </Stack>

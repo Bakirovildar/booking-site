@@ -19,3 +19,10 @@
         align-items: center;
     }
 }
+
+@media (prefers-color-scheme: dark) {
+    .main-container {
+        background-color: #fcfcfc;
+        color: #2222;
+    }
+}

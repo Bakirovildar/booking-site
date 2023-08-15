@@ -10,3 +10,11 @@
 .error-span {
     color: #d95104;
 }
+
+
+@media (prefers-color-scheme: dark) {
+    .input-wrapper {
+        background-color: #fcfcfc;
+        color: #2222;
+    }
+}

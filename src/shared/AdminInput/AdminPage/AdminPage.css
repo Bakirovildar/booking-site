@@ -3,3 +3,11 @@
     padding: 5px;
     margin: 0 auto;
 }
+
+
+@media (prefers-color-scheme: dark) {
+    .admin-container {
+        background-color: #fcfcfc;
+        color: #2222;
+    }
+}
