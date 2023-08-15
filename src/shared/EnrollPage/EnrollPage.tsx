@@ -16,6 +16,7 @@ export const EnrollPage = () => {
 
     return (
         <div className='enroll-container'>
+            <h3>Услуги:</h3>
             {
                 items.map((item: any, index: number) =>
                     <div key={index}>
