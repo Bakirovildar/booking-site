@@ -13,8 +13,8 @@ export const AdminInput = () => {
     }, [])
 
     const inputValue = {
-        login: 'myUfa',
-        password: 'ufa12345678'
+        login: 'ufa',
+        password: '12345678'
     }
 
     const clickInputHandler = (login: string, password: string) => {

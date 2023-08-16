@@ -11,10 +11,6 @@
     min-height: 140px;
 }
 
-.enroll-card-container:hover {
-    background: rgb(161, 198, 222);
-}
-
 .enroll-card-container:active {
     background: rgb(130, 173, 201);
 }
@@ -42,3 +38,15 @@
     align-items: center;
     justify-content: end;
 }
+
+
+@media (max-width: 560px) {
+    .enroll-card-container div{
+        font-size: 16px;
+    }
+
+    .enroll-card-container {
+        min-height: 80px;
+    }
+}
+
