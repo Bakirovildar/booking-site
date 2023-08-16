@@ -4,6 +4,11 @@ import {RootState} from "./store";
 import {child, get, getDatabase, ref, set} from "firebase/database";
 import {useSelector} from "react-redux";
 import {db} from "../database/database";
+import axios from "axios";
+
+const TOKEN = '6190161538:AAHE3sZmbskqFYivx3hfarUbAevXf9TlxvE'
+const CHAT_ID = '-1001946149852'
+const URI_API = `https://api.telegram.org/bot${TOKEN}/sendMessage`
 
 export const ENROLLITEM = 'ENROLLITEM'
 
@@ -60,7 +65,7 @@ export const changeData: ActionCreator<ChangeData> = (itemsData) => {
     }
 }
 
-export const asyncChangeData = (itemsData: any, entryData: any): ThunkAction<void, RootState, unknown, Action> => (dispatch) => {
+export const asyncChangeData = (itemsData: any, entryData: any, name: any, number: any): ThunkAction<void, RootState, unknown, Action> => (dispatch) => {
     const data = itemsData
 
     const updateBookingStatus = (data: any, masterName: string, day: string, time: string, isBooking: boolean) => {
@@ -86,11 +91,17 @@ export const asyncChangeData = (itemsData: any, entryData: any): ThunkAction<voi
 
     dispatch(changeData(itemsData, entryData))
 
-
     async function editData() {
         try {
             await set(ref(db, `services`), data
             ).then(() => {
+            })
+            await axios.post(URI_API, {
+                chat_id: CHAT_ID,
+                parse_mode: 'html',
+                text: `К мастеру ${entryData.nameMaster} записалась(-ся): ${name}, на ${entryData.date} в ${entryData.time}. Тел:${number} `
+            }).then(() => {
+                alert('Вы записались успешно')
             })
         }catch (err) {
             console.log('error changeData', err)

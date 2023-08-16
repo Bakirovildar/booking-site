@@ -43,7 +43,7 @@ export const FormPage = () => {
             return
         }
 
-        dispatch<any>(asyncChangeData(itemsData, {date: date, nameMaster, time: time}))
+        dispatch<any>(asyncChangeData(itemsData, {date: date, nameMaster, time: time}, name, number))
         setIsError(false)
         setIsLoading(true)
 
