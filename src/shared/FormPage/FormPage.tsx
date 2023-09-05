@@ -38,7 +38,7 @@ export const FormPage = () => {
     }
 
     const sendFormHandler = () => {
-        if (!date || !time || !name || !number ) {
+        if (!date || !time || !name || !number) {
             setIsError(true)
             return
         }
@@ -62,18 +62,22 @@ export const FormPage = () => {
     }, [isLoading])
 
     return (
-        <div className='form-page-container'>
-            {
-                isLoading &&
-                <div className='form-page-load'>
-                    <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
-                        <CircularProgress color="secondary" />
-                    </Stack>
-                </div>
+        <div className='form-page'>
+            <div className='form-page-container'>
+                {
+                    isLoading &&
+                    <div className='form-page-load'>
+                        <Stack sx={{color: 'grey.500'}} spacing={2} direction="row">
+                            <CircularProgress color="secondary"/>
+                        </Stack>
+                    </div>
 
-            }
-            { isSuccessfully
-                    ? <div className='form-page-center'><div style={{margin: '0 5px'}}>Вы записались на <b>{date} в {time} к мастеру {nameMaster}</b></div></div>
+                }
+                {isSuccessfully
+                    ? <div className='form-page-center'>
+                        <div style={{margin: '0 5px'}}>Вы записались на <b>{date} в {time} к мастеру {nameMaster}</b>
+                        </div>
+                    </div>
                     : <div className='form-page-wrapper'>
                         <h3>Запись на услугу: {title ? title : ''}</h3>
                         <h4>Мастер: {nameMaster ? nameMaster : ''}</h4>
@@ -91,8 +95,9 @@ export const FormPage = () => {
                                             onChange={handleChange}
                                         >
                                             {
-                                                windows && windows[0].date.map((i: any, idx: number) => <MenuItem key={idx}
-                                                                                                                  value={i.day}>{i.day}</MenuItem>)
+                                                windows && windows[0].date.map((i: any, idx: number) => <MenuItem
+                                                    key={idx}
+                                                    value={i.day}>{i.day}</MenuItem>)
                                             }
                                         </Select>
                                     </FormControl>
@@ -110,7 +115,9 @@ export const FormPage = () => {
                                         >
                                             {
                                                 windows &&
-                                                windows[0].date.map((item: any) => [item.day].includes(date) === true ? item.times.map((item: any, index: number) => <MenuItem disabled={item.isBooking} key={index} value={item.time}>{item.time}</MenuItem>) : '')
+                                                windows[0].date.map((item: any) => [item.day].includes(date) === true ? item.times.map((item: any, index: number) =>
+                                                    <MenuItem disabled={item.isBooking} key={index}
+                                                              value={item.time}>{item.time}</MenuItem>) : '')
                                             }
                                         </Select>
                                     </FormControl>
@@ -137,7 +144,7 @@ export const FormPage = () => {
                                     onChange={e => setNumber(e.target.value)}
                                 />
                             </div>
-                            { isError &&
+                            {isError &&
                             <div className='error-form'>
                                 Заполните обязательные поля *
                             </div>
@@ -147,7 +154,8 @@ export const FormPage = () => {
                             </div>
                         </div>
                     </div>
-            }
+                }
+            </div>
         </div>
     )
 }
