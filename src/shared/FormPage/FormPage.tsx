@@ -91,7 +91,7 @@ export const FormPage = () => {
                                             id="demo-simple-select"
                                             error={isError && !date}
                                             value={date}
-                                            label="ДАта"
+                                            label="Дата"
                                             onChange={handleChange}
                                         >
                                             {
