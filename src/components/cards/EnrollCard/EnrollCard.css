@@ -1,14 +1,25 @@
 .enroll-card-container {
     display: flex;
-    background: #fcfcfc;
+    background: #ffffff;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
     width: 350px;
     box-sizing: border-box;
     border-radius: 15px;
     justify-content: space-between;
     cursor: pointer;
-    margin: 8px;
+    margin: 8px 8px 24px;
     min-height: 140px;
+    overflow: hidden;
+}
+
+.enroll-card-img img {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.enroll-card-footer {
+    display: flex;
+    justify-content: space-between;
 }
 
 .enroll-card-container:active {

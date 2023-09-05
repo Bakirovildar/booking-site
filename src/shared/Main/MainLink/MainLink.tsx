@@ -12,9 +12,9 @@ export const MainLink = () => {
     return (
         <div className='main-link-container'>
             <div className='main-link-header'>
-                Запись на <br/> услуги
+                Запись на <br/> услугу
             </div>
-            <div className='main-link-title'>Нажмите на кнопу и выберите дату</div>
+            <div className='main-link-title'>Нажмите на кнопу и выберите услугу</div>
             <ButtonStandard title='Записаться' clickButtonStandard={() => buttonHandler()}/>
         </div>
     )

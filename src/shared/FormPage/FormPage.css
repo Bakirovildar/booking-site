@@ -5,6 +5,7 @@
     margin: 0 auto;
     background: #FAFAFA;
     border-radius: 5px;
+    box-sizing: border-box;
 }
 
 .form-page-center {

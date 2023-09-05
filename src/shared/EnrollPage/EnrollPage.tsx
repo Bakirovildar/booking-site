@@ -16,18 +16,21 @@ export const EnrollPage = () => {
 
     return (
         <div className='enroll-container'>
-            <h3>Услуги:</h3>
-            {
-                items.map((item: any, index: number) =>
-                    <div key={index}>
-                        {
-                            item.services.map((i: any, idx: number) => <EnrollCard key={idx} title={i.title} id={i.id}
-                                                                                   name={i.name}
-                                                                                   windows={item.windows}/>)
-                        }
-                    </div>)
+            <h3>Выберите услугу:</h3>
+            <div className='enroll-container-flex'>
+                {
+                    items.map((item: any, index: number) =>
+                        <div key={index}>
+                            {
+                                item.services.map((i: any, idx: number) => <EnrollCard key={idx} title={i.title}
+                                                                                       id={i.id}
+                                                                                       name={i.name}
+                                                                                       windows={item.windows}/>)
+                            }
+                        </div>)
 
-            }
+                }
+            </div>
         </div>
     )
 }

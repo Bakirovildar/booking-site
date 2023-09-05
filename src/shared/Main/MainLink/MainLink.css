@@ -1,4 +1,7 @@
 .main-link-container {
+    background: rgba(188, 222, 222, 0.73);
+    border-radius: 5px;
+    padding: 20px;
 }
 
 .main-link-header {

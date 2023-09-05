@@ -2,11 +2,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100px;
+    height: 60px;
     padding: 0 40px;
     width: 100%;
     box-sizing: border-box;
-    background: rgb(193, 190, 190);
+    background: #ffffff;
 }
 
 .header-logo {

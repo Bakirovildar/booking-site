@@ -1,12 +1,14 @@
 .enroll-container {
-    margin: 20px 0;
+    padding: 20px 0;
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     align-items: center;
     overflow-y: scroll;
     -webkit-box-flex: 1;
+    background-color: #ffe9dc;
 }
 
 .enroll-container::-webkit-scrollbar {

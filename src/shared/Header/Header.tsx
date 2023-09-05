@@ -14,7 +14,7 @@ export const Header = () => {
         <div className='header-container'>
             <div
                 onClick={() => clickNavigate('/')}
-                className='header-logo'><img src={logo} alt=""/> <span>Baki</span></div>
+                className='header-logo'><img src={logo} alt=""/> <span></span></div>
             <div className='header-item'>
                 <span
                     onClick={() => clickNavigate('/enroll')}
